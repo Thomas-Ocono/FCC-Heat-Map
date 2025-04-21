@@ -77,6 +77,38 @@ const main = (data) => {
         return "crimson";
       }
     });
+  //create the legend
+  const legend = svg
+    .append("g")
+    .attr("id", "legend")
+    .attr("transform", "translate(125,640)");
+  legend
+    .append("rect")
+    .attr("height", 25)
+    .attr("width", 50)
+    .attr("fill", "SteelBlue");
+  legend.append("text").text("<= -1").attr("transform", "translate(0,-5)");
+  legend
+    .append("rect")
+    .attr("height", 25)
+    .attr("width", 50)
+    .attr("transform", "translate(50,0)")
+    .attr("fill", "LightSteelBlue");
+  legend.append("text").text("<= 0").attr("transform", "translate(50,-5)");
+  legend
+    .append("rect")
+    .attr("height", 25)
+    .attr("width", 50)
+    .attr("transform", "translate(100,0)")
+    .attr("fill", "orange");
+  legend.append("text").text("<= 1").attr("transform", "translate(100,-5)");
+  legend
+    .append("rect")
+    .attr("height", 25)
+    .attr("width", 50)
+    .attr("transform", "translate(150,0)")
+    .attr("fill", "crimson");
+  legend.append("text").text("> 1").attr("transform", "translate(150,-5)");
 };
 
 //get data from url then run main function
