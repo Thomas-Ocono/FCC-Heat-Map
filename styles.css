@@ -4,3 +4,7 @@ h1 {
 h2 {
   text-align: center;
 }
+.cell:hover {
+  stroke: black;
+  stroke-width: 2;
+}

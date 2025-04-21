@@ -51,6 +51,45 @@ const main = (data) => {
     .attr("id", "y-axis")
     .attr("transform", "translate(" + padding + ")");
 
+  //create the tooltip
+  let tooltip = d3
+    .select("body")
+    .append("div")
+    .attr("id", "tooltip")
+    .style("background-color", "lightgray")
+    .style("font-size", "20px")
+    .style("border-radius", "5px");
+  const tooltipText = (d) => {
+    const result = function () {
+      switch (d.month) {
+        case 1:
+          return "January";
+        case 2:
+          return "February";
+        case 3:
+          return "March";
+        case 4:
+          return "April";
+        case 5:
+          return "May";
+        case 6:
+          return "June";
+        case 7:
+          return "July";
+        case 8:
+          return "August";
+        case 9:
+          return "September";
+        case 10:
+          return "October";
+        case 11:
+          return "November";
+        case 12:
+          return "December";
+      }
+    };
+    return `${d.year} : ${result()}`;
+  };
   svg
     .selectAll("rect")
     .data(monthlyVariance)
@@ -76,12 +115,24 @@ const main = (data) => {
       } else {
         return "crimson";
       }
+    })
+    .on("mouseover", (d) => {
+      tooltip.style("opacity", 0.9);
+      tooltip.attr("data-year", d.year);
+      tooltip
+        .html(tooltipText(d))
+        .style("position", "absolute")
+        .style("left", d3.event.pageX - 30 + "px")
+        .style("top", d3.event.pageY - 75 + "px");
+    })
+    .on("mouseout", (d) => {
+      tooltip.style("opacity", 0);
     });
   //create the legend
   const legend = svg
     .append("g")
     .attr("id", "legend")
-    .attr("transform", "translate(125,640)");
+    .attr("transform", "translate(125,650)");
   legend
     .append("rect")
     .attr("height", 25)
