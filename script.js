@@ -15,7 +15,7 @@ const main = (data) => {
   });
 
   const height = 700;
-  const width = 1500;
+  const width = 1800;
   const padding = 100;
 
   let xScale = d3
@@ -25,7 +25,7 @@ const main = (data) => {
 
   let yScale = d3
     .scaleLinear()
-    .domain([0.5, 12.5])
+    .domain([1, 12])
     .range([height - padding, padding]);
 
   const svg = d3
@@ -78,6 +78,19 @@ const main = (data) => {
     .call(yAxis)
     .attr("id", "y-axis")
     .attr("transform", "translate(" + padding + ", 0)");
+  svg
+    .selectAll("rect")
+    .data(monthlyVariance)
+    .enter()
+    .append("rect")
+    .attr("class", "cell")
+    .attr("data-month", (d) => d.month)
+    .attr("data-year", (d) => d.year)
+    .attr("data-temp", (d) => baseTemp + d.variance)
+    .attr("width", (d, i) => (width - padding) / yearsArray.length)
+    .attr("height", (d, i) => (height - padding) / 12)
+    .attr("x", (d) => xScale(d.year))
+    .attr("y", (d) => yScale(d.month) - padding / 2);
 };
 
 //get data from url then run main function
